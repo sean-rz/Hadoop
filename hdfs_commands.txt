@@ -1,0 +1,11 @@
+In addition to the name node and data nodes, there will be a third type of nodes called edgenode which will have access to the full cluster and will have Hadoop CLI and you can transfer files to it, this is the typical setup and sometimes it is called ingestion node, basically it is responsible of receiving files/data in it's file system then load it to HDFS. Edgenode is a role given to a node in the cluster that accepts incoming files/streams.
+
+
+hadoop fs
+hadoop fs -ls
+hadoop fs -mkdir ml_100k
+wget http://media.sundog-soft.com/hadoop/ml-100k/u.data
+hadoop fs -copyFromLocal u.data ml_100k/u.data
+hadoop fs -ls ml_100k
+hadoop fs -rm ml_100k/u.data
+hadoop fs -rmdir ml_100k
