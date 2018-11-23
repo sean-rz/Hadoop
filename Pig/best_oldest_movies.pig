@@ -12,6 +12,7 @@ nameLookup = FOREACH metadata GENERATE movieID, movieTitle,
 
 ratingsByMovie = GROUP ratings BY movieID;
 /*
+(movieID, bag of ratings)
 (1,{(807,1,4,892528231),(554,1,3,876231938),(49,1,2,888068651), … }
 (2,{(429,2,3,882387599),(551,2,2,892784780),(774,2,1,888557383), … }
 */
