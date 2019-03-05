@@ -1,0 +1,36 @@
+mysql -u root -p
+create database movielens;
+show databases;
+
+wget http://media.sundog-soft.com/hadoop/movielens.sql
+
+SET NAMES 'utf8';
+SET CHARACTER SET utf8;
+
+use movielens;
+source movielens.sql
+show tables;
+SELECT * FROM  movies LIMIT 10;
+describe ratings;
+
+SELECT movies.title, COUNT(ratings.movie_id) AS ratingCount
+FROM movies
+INNER JOIN ratings
+ON movies.id = ratings.movie_id
+GROUP BY movies.title
+ORDER BY ratingCount;
+
+GRANT ALL PRIVILEGES ON movielens.* to ''@'localhost';
+
+#From mysql to HDFS:
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies -m 1
+
+#From mysql to HIVE:
+sqoop import --connect jdbc:mysql://localhost/movielens --driver com.mysql.jdbc.Driver --table movies -m 1 --hive-import
+
+
+#From Hive to mysql
+CREATE TABLE exported_movies (id INTEGER, title VARCHAR(255), releaseDate DATE);
+
+sqoop export --connect jdbc:mysql://localhost/movielens -m 1 --driver com.mysql.jdbc.Driver --table exported_movies --export-dir /apps/hive/warehouse/movies --input-fields-terminated-by '\0001'
+
