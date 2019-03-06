@@ -1,3 +1,5 @@
+HBase:
+------------------------------------------------------------------------------------------
 su root
 /usr/hdp/current/hbase-master/bin/hbase-daemon.sh start rest -p 8000 --infoport 8001
 /usr/hdp/current/hbase-master/bin/hbase-daemon.sh stop rest
@@ -8,3 +10,15 @@ create 'users','userinfo'
 scan 'users'
 disable 'users'
 drop 'users'
+
+
+Cassandra:
+------------------------------------------------------------------------------------------
+cqlsh --cqlversion="3.4.0"
+CREATE KEYSPACE movielens WITH replication={'class':'SimpleStrategy', 'replication_factor':'1'} AND durable_writes=true;
+USE movielens;
+CREATE TABLE users (user_id int, age int, gender text, occupation text, zip text, PRIMARY KEY (user_id));
+DESCRIBE TABLE users;
+SELECT * FROM users LIMIT 10;
+
+spark-submit --packages datastax:spark-cassandra-connector:2.0.0-M2-s_2.11 CassandraSpark.py
