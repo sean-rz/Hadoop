@@ -20,5 +20,27 @@ USE movielens;
 CREATE TABLE users (user_id int, age int, gender text, occupation text, zip text, PRIMARY KEY (user_id));
 DESCRIBE TABLE users;
 SELECT * FROM users LIMIT 10;
-
 spark-submit --packages datastax:spark-cassandra-connector:2.0.0-M2-s_2.11 CassandraSpark.py
+
+
+MongoDB:
+------------------------------------------------------------------------------------------
+spark-submit --packages org.mongodb.spark:mongo-spark-connector_2.11:2.0.0 MongoSpark.py
+mongo
+use movielens
+db.users.count()
+db.users.find( {user_id: 100} )
+db.users.explain().find( {user_id: 100} )
+db.users.createIndex( {user_id: 1} )
+db.getCollectionInfos()
+db.users.drop()
+
+
+
+
+
+
+
+
+
+
