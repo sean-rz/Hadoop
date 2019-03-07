@@ -1,0 +1,14 @@
+# Insert data into Hive
+CREATE DATABASE movielens;
+
+# Insert data into MongoDB
+
+SHOW DATABASES;
+SELECT * FROM hive.movielens.ratings LIMIT 10; 
+SELECT * FROM mongo.movielens.users LIMIT 10; 
+
+Q: How many ratings were provided by each occupation?
+SELECT u.occupation, COUNT(*) FROM hive.movielens.ratings r
+JOIN mongo.movielens.users u ON
+r.user_d = u.user_id
+GROUP BY u.occupation;
