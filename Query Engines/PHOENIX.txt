@@ -1,0 +1,17 @@
+# To start Phoenix
+python sqlline.py
+
+# list of tables in HBase
+!tables
+
+CREATE TABLE IF NOT EXISTS us_population (
+      state CHAR(2) NOT NULL,
+      city VARCHAR NOT NULL,
+      population BIGINT
+      CONSTRAINT my_pk PRIMARY KEY (state, city));
+
+UPSERT INTO us_population VALUES ('NY', 'NEW YORK', 5354654);
+DROP TABLE us_population;
+!quit
+
+CREATE TABLE users (USERID INTEGER NOT NULL, AGE INTEGER, GENDER CHAR(1), OCCUPATION VARCHAR, ZIP VARCHAR CONSTRAINT pk PRIMARY KEY(USERID));
