@@ -1,0 +1,35 @@
+bin/launcher start
+
+# connecting to Hive
+bin/presto --server 127.0.0.1:8090 --catalog hive,cassandra
+
+show tables from default;
+select * from default.ratings limit 10;
+
+# count 1-star rating
+select count(*) from default.ratings where rating=1;
+
+quit
+bin/launcher stop
+
+# start Cassandra
+service cassandra start
+nodetool enablethrift
+cqlsh --cqlversion="3.4.0"
+
+describe keyspaces;
+use movielens;
+describe tables;
+quit
+
+show tables from cassandra.movielens;
+describe cassandra.movielens.users;
+
+select * from cassandra.movielens.users limit 10;
+select * from hive.default.ratings limit 10;
+
+
+SELECT u.occupation, count(*) FROM hive.default.ratings r
+JOIN cassandra.movielens.users u ON
+r.user_id = u.user_id
+GROUP BY u.occupation;
