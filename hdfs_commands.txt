@@ -9,3 +9,6 @@ hadoop fs -copyFromLocal u.data ml_100k/u.data
 hadoop fs -ls ml_100k
 hadoop fs -rm ml_100k/u.data
 hadoop fs -rmdir ml_100k
+hadoop fs -put workflow.xml /user/maria_dev
+hadoop fs -put oldmovies.sql /user/maria_dev
+hadoop fs -put /usr/share/java/mysql-connector-java.jar /user/oozie/share/lib/lib_20180618160835/sqoop
