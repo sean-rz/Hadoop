@@ -1,0 +1,23 @@
+cd /usr/hdp/current/kafka-broker/
+ls
+cd bin
+./kafka-topics.sh --create --zookeeper sandbox-hdp.hortonworks.com:2181 --replication-factor 1 --partitions 1 --topic fred
+./kafka-topics.sh --list --zookeeper sandbox-hdp.hortonworks.com:2181
+./kafka-console-producer.sh --broker-list sandbox-hdp.hortonworks.com:6667 --topic fred
+This is a line of data
+I am sending this on the fred topic
+
+cd /usr/hdp/current/kafka-broker/bin
+./kafka-console-consumer.sh --bootstrap-server sandbox-hdp.hortonworks.com:6667 --topic fred --from-beginning
+
+
+
+cd /usr/hdp/current/kafka-broker/conf
+cp connect-standalone.properties ~/
+cp connect-file-sink.properties ~/
+cp connect-file-source.properties ~/
+cd ~
+wget http://media.sundog-soft.com/hadoop/access_log_small.txt
+cd /usr/hdp/current/kafka-broker/bin
+./kafka-console-consumer.sh --bootstrap-server sandbox-hdp.hortonworks.com:6667 --topic log-test
+./connect-standalone.sh ~/connect-standalone.properties ~/connect-file-source.properties ~/connect-file-sink.properties
