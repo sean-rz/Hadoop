@@ -1,0 +1,15 @@
+cd /usr/hdp/current
+cd storm-client
+ls
+cd contrib/storm-starter/src/jvm/org/apache/storm/starter
+or
+cd /usr/hdp/current/storm-client/contrib/storm-starter/src/jvm/org/apache/storm/starter
+
+
+storm jar /usr/hdp/current/storm-client/contrib/storm-starter/storm-starter-topologies-*.jar org.apache.storm.starter.WordCountTopology wordcount
+
+Storm UI:
+127.0.0.1:8744
+
+cd /usr/hdp/current/storm-client/logs
+cd workers-artifacts
